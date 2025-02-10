@@ -1,3 +1,10 @@
+# Exercise 0.4 - New Note Diagram
+This shows the exchange between the browser and server when a new note is created from this webiste:
+https://studies.cs.helsinki.fi/exampleapp/notes
+
+In this situation the website is already loaded, and the following shows what happens when a new note is added.
+
+```mermaid
 sequenceDiagram
     participant browser
     participant server
@@ -25,3 +32,4 @@ sequenceDiagram
     deactivate server
 
     Note right of browser: The browser executes the callback function that renders the notes
+```
