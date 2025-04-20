@@ -3,17 +3,12 @@ import { useState } from 'react'
 const Button = (props) => {
   return <button onClick={props.onClick}>{props.rating}</button>
 }
- 
-const App = () => {
-  // save clicks of each button to its own state
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
 
-  // intially tried to create these values as a function that runs.
-  // but this was not needed as they generate new values with the state change.
+const Statistics = ({ good, neutral, bad }) => {
+  //upgraded props to destructure and make the code cleaner. 
+  // new component to state the Statistics.
+
   const all = good+neutral+bad
-
   //split up the statistics to remove the NaN from showing.
   if (all!==0) {
     var average = (good-bad)/all;
@@ -22,6 +17,26 @@ const App = () => {
     var average = 0;
     var positive = 0;
   }
+
+  return <div>
+    <h1>Statistics</h1>
+    <p>Good: {good}</p>
+    <p>Neutral: {neutral}</p>
+    <p>Bad: {bad}</p>
+    <p>All: {all} </p>
+    <p>Average: {average} </p>
+    <p>Positive: {positive} %</p>
+    </div>
+}
+ 
+const App = () => {
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  // completed the code to work, but decided that i didnt like the format of inputting the varibles into the component
+  const stats = { good, neutral, bad }
 
   return (
     <div>
@@ -32,15 +47,8 @@ const App = () => {
         <Button onClick={() => setBad(bad+1)} rating="Bad" />
       </div>
 
-      <div>
-        <h1>Statistics</h1>
-        <p>Good: {good}</p>
-        <p>Neutral: {neutral}</p>
-        <p>Bad: {bad}</p>
-        <p>All: {all} </p>
-        <p>Average: {average} </p>
-        <p>Positive: {positive} %</p>
-      </div>
+      <Statistics {...stats} />
+
     </div>
   )
 }
