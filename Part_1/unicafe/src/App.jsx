@@ -9,17 +9,17 @@ const Statistics = ({ good, neutral, bad }) => {
   // new component to state the Statistics.
 
   const all = good+neutral+bad
-  //split up the statistics to remove the NaN from showing.
-  if (all!==0) {
-    var average = (good-bad)/all;
-    var positive = (good/all)*100;
-  } else {
-    var average = 0;
-    var positive = 0;
+  
+  if (all===0) {
+   return <div>
+    <p>No feedback given.</p>
+   </div>
   }
 
+  const average = (good-bad)/all;
+  const positive = (good/all)*100;
+
   return <div>
-    <h1>Statistics</h1>
     <p>Good: {good}</p>
     <p>Neutral: {neutral}</p>
     <p>Bad: {bad}</p>
@@ -47,8 +47,10 @@ const App = () => {
         <Button onClick={() => setBad(bad+1)} rating="Bad" />
       </div>
 
-      <Statistics {...stats} />
-
+      <div>
+        <h1>Statistics</h1>
+        <Statistics {...stats} />
+      </div>
     </div>
   )
 }
