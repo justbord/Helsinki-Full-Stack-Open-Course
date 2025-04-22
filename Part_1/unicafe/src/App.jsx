@@ -4,12 +4,13 @@ const Button = (props) => {
   return <button onClick={props.onClick}>{props.rating}</button>
 }
 
-const Statistics = ({ good, neutral, bad }) => {
-  //upgraded props to destructure and make the code cleaner. 
-  // new component to state the Statistics.
+const StatisticLine = ({ text, value }) => {
+  return <p>{text}: {value}</p>
+}
 
-  const all = good+neutral+bad
-  
+const Statistics = ({ good, neutral, bad }) => {
+  const all = good + neutral + bad
+
   if (all===0) {
    return <div>
     <p>No feedback given.</p>
@@ -17,15 +18,16 @@ const Statistics = ({ good, neutral, bad }) => {
   }
 
   const average = (good-bad)/all;
-  const positive = (good/all)*100;
+  const positivePercent = (good/all)*100;
+  const positive = positivePercent+" %"
 
   return <div>
-    <p>Good: {good}</p>
-    <p>Neutral: {neutral}</p>
-    <p>Bad: {bad}</p>
-    <p>All: {all} </p>
-    <p>Average: {average} </p>
-    <p>Positive: {positive} %</p>
+    <StatisticLine text="Good" value={good} />
+    <StatisticLine text="Neutral" value={neutral} />
+    <StatisticLine text="Bad" value={bad} />
+    <StatisticLine text="All" value={all} />
+    <StatisticLine text="Average" value={average} />
+    <StatisticLine text="Positive" value={positive} />
     </div>
 }
  
