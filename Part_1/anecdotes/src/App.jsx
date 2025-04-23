@@ -15,32 +15,36 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
   ]
+  const anecdotesLength = anecdotes.length
    
   const [selected, setSelected] = useState(0)
-  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
+  const [votes, setVotes] = useState(Array(anecdotesLength).fill(0))
 
-
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
+  const maxValue = Math.max(...votes)
+  const firstMaxIndex = votes.indexOf(maxValue)
 
   const newQuote = () => {
-    const quoteNumber = getRandomInt(anecdotes.length)
-    return setSelected(quoteNumber)
+    const quoteNumber = Math.floor(Math.random() * anecdotesLength)
+    setSelected(quoteNumber)
   }
 
   const vote = () => {
-    const votesCopy = [...votes]
-    votesCopy[selected] += 1
-    return setVotes(votesCopy)
+    const updatedVotes = [...votes]
+    updatedVotes[selected] += 1
+    setVotes(updatedVotes)
   }
 
   return (
     <div>
+      <h1>Anecdote of the day!</h1>
       <p>{anecdotes[selected]}</p>
-      <p>{votes[selected]}</p>
+      <p>Has {votes[selected]} votes</p>
       <Button onClick={newQuote} text="Next Random Quote" />
       <Button onClick={vote} text="Vote!" />
+      <br />
+      <h1>Favourite Anecdote!</h1>
+      <p>{anecdotes[firstMaxIndex]}</p>
+      <p>Has {votes[firstMaxIndex]} votes</p>
     </div>
   )
 }
